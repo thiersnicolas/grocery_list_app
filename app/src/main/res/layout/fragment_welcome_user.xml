@@ -1,0 +1,53 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.grocerylist.screens.WelcomeUserFragment">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.grocerylist.screens.UserViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:paddingTop="16dp">
+
+
+        <ImageView
+            android:id="@+id/grocery_list_logo"
+            android:layout_width="match_parent"
+            android:layout_height="142dp"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="Grocery Lists logo"
+            app:srcCompat="@drawable/ic_cart_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="24dp"
+            android:text="Welcome"
+            app:welcomeUser="@{viewModel.activeUser}"
+            android:textAppearance="@style/TextAppearance.GroceryList.SubTitle"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="24dp"
+            android:text="@string/your_app"
+            android:textAppearance="@style/TextAppearance.GroceryList.SubTitle" />
+
+
+    </LinearLayout>
+
+
+</layout>

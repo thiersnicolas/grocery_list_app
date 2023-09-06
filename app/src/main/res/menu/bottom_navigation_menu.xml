@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/logout"
+        android:enabled="true"
+        android:icon="@drawable/ic_logout_icon"
+        android:title="@string/logout_text"/>
+    <item
+        android:id="@+id/groceryListsFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_cart_icon"
+        android:title="@string/grocery_lists"/>
+    <item
+        android:id="@+id/createGroceryListFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_cart_add_icon"
+        android:title="@string/create_grocery_list_text"/>
+</menu>

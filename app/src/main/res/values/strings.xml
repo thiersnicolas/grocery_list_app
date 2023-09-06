@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">GroceryListApplication</string>
+    <string name="users">Users</string>
+    <string name="grocery_lists">Grocery Lists</string>
+    <string name="grocery_list">Grocery List</string>
+    <string name="grocery_list_name_text">Grocery List Name</string>
+    <string name="grocery_list_owner_text">Grocery List Owner</string>
+    <string name="grocery_list_price_text">Grocery List Price</string>
+    <string name="grocery_list_currency_text">Grocery List Currency</string>
+    <string name="grocery_list_status_text">Grocery List Status</string>
+    <string name="create_grocery_list_text">Create Grocery List</string>
+    <string name="grocery_list_name_invalid">Grocery List name is invalid</string>
+    <string name="create_text">Create</string>
+    <string name="refresh_grocery_list_text">Refresh Grocery Lists</string>
+    <string name="search_grocery_lists">Search Grocery Lists</string>
+    <string name="login_text">Sign in</string>
+    <string name="logout_text">Sign out</string>
+    <string name="register_text">Register</string>
+    <string name="unknown_user">Please Login or Register</string>
+    <string name="your_app">Your Grocery List App</string>
+
+    <string name="app_email_invalid">Email is invalid</string>
+    <string name="app_password_invalid">Password is invalid</string>
+    <string name="app_name_invalid">Name is invalid</string>
+    <string name="name">Name</string>
+    <string name="email">Email Address</string>
+    <string name="password">Password</string>
+    <string name="grocery_list_delete_button">Grocery List Delete Button</string>
+    <string name="grocery_list_edit_button">Grocery List Edit Button</string>
+    <string name="owner_prefix">Owner:</string>
+
+</resources>

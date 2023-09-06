@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.grocerylist.screens.grocerylists.GroceryListDetailFragment">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.grocerylist.screens.grocerylists.GroceryListDetailViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fragment_stats_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/grocery_lists_constraint_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="-38dp">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/back_app_bar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorSecondary"
+                android:clickable="true"
+                android:scrollbarThumbHorizontal="@color/colorSecondary"
+                android:scrollbarThumbVertical="@color/colorSecondary"
+                android:theme="@style/Widget.GroceryList.Button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:navigationIcon="@drawable/ic_home_icon"
+                app:title="@string/grocery_lists"
+                app:titleCentered="true"
+                app:titleTextAppearance="@style/TextAppearance.AppCompat.Large" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/grocery_list_detail_top_constraint_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/back_app_bar">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/grocery_list_detail_name_constraint_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:layout_constraintBottom_toTopOf="@+id/grocery_list_details_constraint_layout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/grocery_list_detail_name"
+                        style="@style/Widget.GroceryList.TextInputLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{viewModel.groceryListDetail.name}"
+                        android:textSize="24sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/grocery_list_detail_edit_button"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="groceryListDetailName"/>
+
+                    <ImageView
+                        android:id="@+id/grocery_list_detail_edit_button"
+                        android:layout_width="40dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/grocery_list_edit_button"
+                        app:layout_constraintBottom_toBottomOf="@+id/grocery_list_detail_name"
+                        app:layout_constraintEnd_toStartOf="@+id/grocery_list_detail_delete_button"
+                        app:layout_constraintStart_toEndOf="@+id/grocery_list_detail_name"
+                        app:layout_constraintTop_toTopOf="@+id/grocery_list_detail_name"
+                        app:srcCompat="@drawable/ic_edit_icon" />
+
+                    <ImageView
+                        android:id="@+id/grocery_list_detail_delete_button"
+                        android:layout_width="40dp"
+                        android:layout_height="0dp"
+                        android:contentDescription="@string/grocery_list_delete_button"
+                        app:layout_constraintBottom_toBottomOf="@+id/grocery_list_detail_name"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/grocery_list_detail_edit_button"
+                        app:layout_constraintTop_toTopOf="@+id/grocery_list_detail_name"
+                        app:srcCompat="@drawable/ic_delete_icon"
+                        android:onClick="@{() -> viewModel.deleteGroceryListDetail()}"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/grocery_list_details_constraint_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/grocery_list_detail_name_constraint_layout">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/grocery_list_details_constraint_layout2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:layout_constraintBottom_toTopOf="@+id/grocery_list_details_constraint_layout3"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/grocery_list_detail_owner"
+                            style="@style/Widget.GroceryList.TextInputLayout"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="0dp"
+                            android:layout_weight="1"
+                            android:textSize="18sp"
+                            app:groceryListCreatedBy="@{viewModel.groceryListDetail}"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/grocery_list_detail_price"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="createdByName"/>
+
+                        <TextView
+                            android:id="@+id/grocery_list_detail_price"
+                            style="@style/Widget.GroceryList.TextInputLayout"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="0dp"
+                            android:layout_weight="1"
+                            android:textSize="18sp"
+                            app:groceryListPrice="@{viewModel.groceryListDetail}"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/grocery_list_detail_owner"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="Price"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/grocery_list_details_constraint_layout3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/grocery_list_details_constraint_layout2">
+
+                        <TextView
+                            android:id="@+id/grocery_list_detail_status"
+                            style="@style/Widget.GroceryList.TextInputLayout"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="0dp"
+                            android:layout_weight="1"
+                            android:textSize="18sp"
+                            app:groceryListStatus="@{viewModel.groceryListDetail}"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/grocery_list_detail_collect_by"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="Status"/>
+
+                        <TextView
+                            android:id="@+id/grocery_list_detail_collect_by"
+                            style="@style/Widget.GroceryList.TextInputLayout"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="0dp"
+                            android:layout_weight="1"
+                            android:textSize="18sp"
+                            app:groceryListCollectBy="@{viewModel.groceryListDetail}"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/grocery_list_detail_status"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="collectBy"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/grocery_list_products"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toTopOf="@+id/refresh_grocery_lists_constraint_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/grocery_list_detail_top_constraint_layout">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/grocery_list_users"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toTopOf="@+id/refresh_grocery_lists_constraint_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/grocery_list_detail_top_constraint_layout">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/refresh_grocery_lists_constraint_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <ImageView
+                    android:id="@+id/refresh_grocery_list_image"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="4dp"
+                    android:contentDescription="@string/refresh_grocery_list_text"
+                    android:onClick="@{() -> viewModel.refreshGroceryListDetail()}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:srcCompat="@drawable/ic_refresh_icon" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

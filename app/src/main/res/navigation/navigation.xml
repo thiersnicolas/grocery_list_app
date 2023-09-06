@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/welcomeUserFragment">
+
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.grocerylist.screens.MainActivity"
+        android:label="MainActivity"
+        tools:layout="@layout/activity_main"/>
+
+    <fragment
+        android:id="@+id/unknownUserFragment"
+        android:name="com.example.grocerylist.screens.UnknownUserFragment"
+        android:label="UnknownUserFragment"
+        tools:layout="@layout/fragment_unknown_user" />
+
+    <fragment
+        android:id="@+id/welcomeUserFragment"
+        android:name="com.example.grocerylist.screens.WelcomeUserFragment"
+        android:label="WelcomeUserFragment"
+        tools:layout="@layout/fragment_welcome_user" >
+        <action
+            android:id="@+id/action_welcomeUserFragment_to_unknownUserFragment"
+            app:destination="@id/unknownUserFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.grocerylist.screens.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_welcomeUserFragment"
+            app:destination="@id/welcomeUserFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.grocerylist.screens.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" />
+
+    <fragment
+        android:id="@+id/groceryListsFragment"
+        android:name="com.example.grocerylist.screens.grocerylists.GroceryListsFragment"
+        android:label="GroceryListsFragment"
+        tools:layout="@layout/fragment_grocery_lists">
+        <action
+            android:id="@+id/action_groceryListsFragment_to_createGroceryListFragment"
+            app:destination="@id/createGroceryListFragment" />
+        <action
+            android:id="@+id/action_groceryListsFragment_to_groceryListDetailFragment"
+            app:destination="@id/groceryListDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/createGroceryListFragment"
+        android:name="com.example.grocerylist.screens.grocerylists.CreateGroceryListFragment"
+        android:label="CreateGroceryListFragment"
+        tools:layout="@layout/fragment_create_grocery_list">
+        <action
+            android:id="@+id/action_createGroceryListFragment_to_groceryListDetailFragment"
+            app:destination="@id/groceryListDetailFragment" />
+        <action
+            android:id="@+id/action_createGroceryListFragment_to_groceryListsFragment"
+            app:destination="@id/groceryListsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/groceryListDetailFragment"
+        android:name="com.example.grocerylist.screens.grocerylists.GroceryListDetailFragment"
+        android:label="GroceryListDetailFragment"
+        tools:layout="@layout/fragment_grocery_list_detail">
+        <argument
+            android:name="groceryListId"
+            app:argType="java.util.UUID" />
+        <action
+            android:id="@+id/action_groceryListDetailFragment_to_groceryListsFragment"
+            app:destination="@id/groceryListsFragment" />
+    </fragment>
+
+    <!--    Global actions-->
+    <action
+        android:id="@+id/action_global_nav_login"
+        app:destination="@id/loginFragment" />
+    <action
+        android:id="@+id/action_global_nav_register"
+        app:destination="@id/registerFragment" />
+    <action
+        android:id="@+id/action_global_nav_welcome"
+        app:destination="@id/welcomeUserFragment" />
+    <action
+        android:id="@+id/action_global_nav_unknown_user"
+        app:destination="@id/unknownUserFragment"
+        app:popUpTo="@id/welcomeUserFragment" />
+
+</navigation>
