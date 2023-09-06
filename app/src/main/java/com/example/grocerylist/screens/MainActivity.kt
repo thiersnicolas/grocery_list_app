@@ -53,17 +53,17 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.logout -> {
                     logout()
-                    true
+                    false
                 }
 
                 R.id.groceryListsFragment -> {
                     navController.navigate(R.id.groceryListsFragment)
-                    true
+                    false
                 }
 
                 R.id.createGroceryListFragment -> {
                     navController.navigate(R.id.createGroceryListFragment)
-                    true
+                    false
                 }
 
                 else -> false

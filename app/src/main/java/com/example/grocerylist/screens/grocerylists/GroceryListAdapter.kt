@@ -2,9 +2,6 @@ package com.example.grocerylist.screens.grocerylists
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Filter
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -16,19 +13,23 @@ import timber.log.Timber
 import java.util.*
 
 class GroceryListAdapter(
-    val clickListener: GroceryListListener,
-    val user: LiveData<AppUser?>
+    val clickListener: GroceryListListener
 ) :
     ListAdapter<GroceryList, ViewHolder>(GroceryListDiffCallback()) {
     private var unfilteredList: List<GroceryList> = emptyList()
+    private var user: AppUser? = null
 
     fun modifyList(list: List<GroceryList>) {
         unfilteredList = list
         submitList(list)
     }
 
+    fun addUser(user: AppUser?) {
+        this.user = user
+    }
+
     fun filter(filter: CharSequence?) {
-        if(!filter.isNullOrEmpty()) {
+        if (!filter.isNullOrEmpty()) {
             submitList(unfilteredList.filter { it.name.contains(filter, true) })
         } else {
             submitList(unfilteredList)
@@ -46,24 +47,26 @@ class GroceryListAdapter(
 }
 
 
-class ViewHolder(val binding: GroceryListItemBinding, val user: LiveData<AppUser?>) : RecyclerView.ViewHolder(binding.root) {
+class ViewHolder(val binding: GroceryListItemBinding, val user: AppUser?) :
+    RecyclerView.ViewHolder(binding.root) {
 
     fun bind(clickListener: GroceryListListener, item: GroceryList) {
         binding.groceryListNameTextview.text = item.name
         binding.groceryListStatusTextview.text = item.status
 
-        Timber.tag("GroceryListAdapter").i("binding groceryList: %s; and user: %s", gson.toJson(item), gson.toJson(user))
+        Timber.tag("GroceryListAdapter")
+            .i("binding groceryList: %s; and user: %s", gson.toJson(item), gson.toJson(user))
 
         binding.groceryList = item
         binding.clickListener = clickListener
-        binding.user = user.value
+        binding.user = user
         binding.executePendingBindings()
 
 
     }
 
     companion object {
-        fun from(parent: ViewGroup, user: LiveData<AppUser?>): ViewHolder {
+        fun from(parent: ViewGroup, user: AppUser?): ViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
             val binding = GroceryListItemBinding.inflate(layoutInflater, parent, false)
             return ViewHolder(binding, user)

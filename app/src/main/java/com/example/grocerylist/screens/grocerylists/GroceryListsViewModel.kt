@@ -9,6 +9,7 @@ import com.example.grocerylist.repository.GroceryListRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.util.UUID
 import javax.inject.Inject
 
 enum class GroceryListsApiStatus { LOADING, ERROR, DONE }
@@ -18,15 +19,19 @@ class GroceryListsViewModel @Inject constructor(private val groceryListRepositor
     ViewModel() {
 
     val groceryLists: LiveData<List<GroceryList>>
-        get() = groceryListRepository._groceryLists
+        get() = groceryListRepository.groceryLists
 
     private val _status = MutableLiveData<GroceryListsApiStatus>()
     val status: LiveData<GroceryListsApiStatus>
         get() = _status
 
-    private val _createGroceryListClicked = MutableLiveData(false)
-    val createGroceryListClicked
-        get() = _createGroceryListClicked
+    private val _navigateToGroceryListDetail = MutableLiveData<UUID?>()
+    val navigateToGroceryListDetail
+        get() = _navigateToGroceryListDetail
+
+    private val _navigateToCreateGroceryList = MutableLiveData(false)
+    val navigateToCreateGroceryList
+        get() = _navigateToCreateGroceryList
 
     init {
         Timber.i("getting groceryLists")
@@ -46,8 +51,20 @@ class GroceryListsViewModel @Inject constructor(private val groceryListRepositor
         }
     }
 
-    fun createClicked() {
-        _createGroceryListClicked.value = true
+    fun onCreateClicked() {
+        _navigateToCreateGroceryList.value = true
+    }
+
+    fun doneNavigatingToCreateGroceryList() {
+        _navigateToCreateGroceryList.value = false
+    }
+
+    fun onGroceryListClicked(id: UUID) {
+        _navigateToGroceryListDetail.value = id
+    }
+
+    fun doneNavigatingToGroceryListDetails() {
+        _navigateToGroceryListDetail.value = null
     }
 
     override fun onCleared() {

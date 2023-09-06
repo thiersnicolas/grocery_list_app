@@ -21,7 +21,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{()->clickListener.onClick(groceryList)}">
+        android:onClick="@{() -> clickListener.onClick(groceryList)}">
 
         <TextView
             android:id="@+id/grocery_list_name_textview"
@@ -57,7 +57,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/grocery_list_status_textview"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:onClick="@{() -> clickListener.onClick(groceryList)}"/>
 
             <TextView
                 android:id="@+id/grocery_list_status_textview"

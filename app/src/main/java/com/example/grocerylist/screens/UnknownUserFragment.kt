@@ -37,6 +37,14 @@ class UnknownUserFragment : Fragment() {
         val view = binding.root
         userViewModel = ViewModelProvider(requireActivity())[UserViewModel::class.java]
 
+        binding.toLoginButton.setOnClickListener {
+            navController.navigate(UnknownUserFragmentDirections.actionUnknownUserFragmentToLoginFragment())
+        }
+
+        binding.toRegisterButton.setOnClickListener {
+            navController.navigate(UnknownUserFragmentDirections.actionUnknownUserFragmentToRegisterFragment())
+        }
+
         return view
     }
 

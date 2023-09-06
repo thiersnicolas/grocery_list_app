@@ -45,14 +45,20 @@ class WelcomeUserFragment : Fragment() {
         val view = binding.root
         userViewModel = ViewModelProvider(requireActivity())[UserViewModel::class.java]
 
-        if(userViewModel.activeUser.value == null) {
-            navController.navigate(R.id.action_welcomeUserFragment_to_unknownUserFragment)
-        }
+        setUpObservers()
 
         binding.viewModel = userViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
         return view
+    }
+
+    private fun setUpObservers() {
+        userViewModel.activeUser.observe(viewLifecycleOwner) { foundUser ->
+            if (foundUser == null) {
+                navController.navigate(MainActivityDirections.actionGlobalNavUnknownUser())
+            }
+        }
     }
 
     override fun onDestroyView() {

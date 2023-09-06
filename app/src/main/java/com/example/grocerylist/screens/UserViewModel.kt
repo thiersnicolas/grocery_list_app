@@ -29,8 +29,6 @@ class UserViewModel @Inject constructor(
     val activeUser: LiveData<AppUser?>
         get() = appUserRepository.activeUser
 
-    var staleUser = true
-
     fun login(loginRequest: LoginRequest, loginScrollView: ScrollView) {
         appUserRepository.attemptLogin(loginRequest).enqueue(object : Callback<LoginResponse> {
             override fun onResponse(
@@ -39,7 +37,6 @@ class UserViewModel @Inject constructor(
             ) {
                 if (response.isSuccessful && response.body() != null) {
                     val user = response.body()!!.mapToUser()
-                    staleUser = false
                     viewModelScope.launch {
                         appUserRepository.loginSuccessful(user, response.body()!!.token)
                     }
@@ -71,7 +68,6 @@ class UserViewModel @Inject constructor(
             ) {
                 if (response.isSuccessful && response.body() != null) {
                     val user = response.body()!!.mapToUser()
-                    staleUser = false
                     viewModelScope.launch {
                         appUserRepository.loginSuccessful(user, response.body()!!.token)
                     }

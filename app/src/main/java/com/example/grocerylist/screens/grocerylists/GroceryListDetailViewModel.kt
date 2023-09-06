@@ -9,27 +9,30 @@ import com.example.grocerylist.repository.GroceryListRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.util.UUID
+import java.util.*
 import javax.inject.Inject
 
 enum class GroceryListDetailApiStatus { LOADING, ERROR, DONE }
 
 @HiltViewModel
-class GroceryListDetailViewModel @Inject constructor(private val groceryListRepository: GroceryListRepository) :
+class GroceryListDetailViewModel @Inject constructor(
+    private val groceryListRepository: GroceryListRepository
+) :
     ViewModel() {
 
     val groceryListDetail: LiveData<GroceryListDetail?>
-        get() = groceryListRepository._groceryListDetail
+        get() = groceryListRepository.groceryListDetail
 
     private val _status = MutableLiveData<GroceryListDetailApiStatus>()
     val status: LiveData<GroceryListDetailApiStatus>
         get() = _status
 
-    private val _deleteClicked = MutableLiveData(false)
-    val deleteClicked: LiveData<Boolean>
-        get() = _deleteClicked
+    private val _navigateToGroceryLists = MutableLiveData<UUID?>()
+    val navigateToGroceryLists: LiveData<UUID?>
+        get() = _navigateToGroceryLists
 
     fun getGroceryListDetail(groceryListId: UUID) {
+        Timber.tag("GroceryListDetailViewModel").i("getGroceryListDetail")
         viewModelScope.launch {
             _status.value = GroceryListDetailApiStatus.LOADING
             groceryListRepository.getGroceryListDetail(groceryListId)
@@ -46,17 +49,20 @@ class GroceryListDetailViewModel @Inject constructor(private val groceryListRepo
         }
     }
 
-    fun deleteGroceryListDetail() {
-        _deleteClicked.value = true
+    fun onDeleteClicked(id: UUID?) {
+        _navigateToGroceryLists.value = id
+    }
+
+    fun deleteGroceryListDetail(id: UUID) {
         viewModelScope.launch {
-            groceryListDetail.value?.let {
-                groceryListRepository.deleteGroceryListDetail(it.id)
-            }
+            _status.value = GroceryListDetailApiStatus.LOADING
+            groceryListRepository.deleteGroceryListDetail(id)
+            _status.value = GroceryListDetailApiStatus.DONE
         }
     }
 
-    override fun onCleared() {
-        Timber.tag("USER_VIEW_MODEL").d("Clearing the viewmodel...")
-        super.onCleared()
+    fun doneNavigatingToGroceryLists() {
+        _navigateToGroceryLists.value = null
     }
+
 }

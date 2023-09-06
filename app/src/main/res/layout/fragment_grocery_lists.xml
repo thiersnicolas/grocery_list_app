@@ -80,7 +80,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_cart_add_icon"
-                    android:onClick="@{() -> viewModel.createClicked()}"/>
+                    android:onClick="@{() -> viewModel.onCreateClicked()}"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

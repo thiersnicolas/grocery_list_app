@@ -17,9 +17,6 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
-private const val BASE_URL = "https://grocery-list-webservice.onrender.com"
-
-
 @Module
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
@@ -34,9 +31,9 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun createRetrofitClient(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit {
+    fun createRetrofitClient(okHttpClient: OkHttpClient, moshi: Moshi, baseUrl: String): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(baseUrl)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(okHttpClient)
             .build()
@@ -63,10 +60,10 @@ class NetworkModule {
         return OkHttpClient.Builder()
             .addInterceptor(httpLoggingInterceptor)
             .addInterceptor(authInterceptor)
-            .readTimeout(20, TimeUnit.SECONDS)
-            .connectTimeout(20, TimeUnit.SECONDS)
-            .writeTimeout(20, TimeUnit.SECONDS)
-            .callTimeout(20, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
+            .callTimeout(30, TimeUnit.SECONDS)
             .build()
     }
 }

@@ -59,7 +59,7 @@ class RegisterFragment : Fragment() {
                 binding.nameInputField.error = null
                 binding.emailInputField.error = null
                 binding.passwordTextLayout.error = null
-                navController.popBackStack()
+                navController.navigate(MainActivityDirections.actionGlobalNavWelcome())
             }
         }
     }

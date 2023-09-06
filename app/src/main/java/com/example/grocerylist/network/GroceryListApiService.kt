@@ -1,11 +1,10 @@
 package com.example.grocerylist.network
 
-import com.example.grocerylist.network.resources.CreateGroceryListRequest
-import com.example.grocerylist.network.resources.GroceryListDetailResponse
-import com.example.grocerylist.network.resources.GroceryListProductsResponse
-import com.example.grocerylist.network.resources.GroceryListUsersResponse
+import com.example.grocerylist.network.resources.*
 import com.example.grocerylist.network.rest.resources.GroceryListsResponse
+import okhttp3.ResponseBody
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.*
 
 interface GroceryListApiService {
@@ -20,7 +19,7 @@ interface GroceryListApiService {
 
     @Headers("Content-Type:application/json")
     @DELETE("/api/grocery-lists/{groceryListId}")
-    fun deleteGroceryListDetail(@Path("groceryListId") groceryListId: String): Call<Unit>
+    suspend fun deleteGroceryListDetail(@Path("groceryListId") groceryListId: String): Response<ResponseBody>
 
     @Headers("Content-Type:application/json")
     @GET("/api/grocery-lists/{groceryListId}/users")

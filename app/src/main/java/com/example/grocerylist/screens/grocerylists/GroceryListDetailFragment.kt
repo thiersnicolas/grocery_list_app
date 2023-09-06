@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -44,8 +43,12 @@ class GroceryListDetailFragment : Fragment() {
             navController.navigate(MainActivityDirections.actionGlobalNavWelcome())
         }
 
-        viewModel.deleteClicked.observe(viewLifecycleOwner) {
-            if (it == true) navController.navigate(GroceryListDetailFragmentDirections.actionGroceryListDetailFragmentToGroceryListsFragment())
+        viewModel.navigateToGroceryLists.observe(viewLifecycleOwner) { groceryListId ->
+            groceryListId?.let {
+                viewModel.deleteGroceryListDetail(it)
+                navController.navigate(GroceryListDetailFragmentDirections.actionGroceryListDetailFragmentToGroceryListsFragment())
+                viewModel.doneNavigatingToGroceryLists()
+            }
         }
 
         binding.viewModel = viewModel

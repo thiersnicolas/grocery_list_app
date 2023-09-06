@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -45,13 +44,8 @@ class GroceryListsFragment : Fragment() {
 
         val adapter = GroceryListAdapter(
             GroceryListListener { groceryListId ->
-                this.findNavController().navigate(
-                    GroceryListsFragmentDirections.actionGroceryListsFragmentToGroceryListDetailFragment(
-                        groceryListId
-                    )
-                )
-            },
-            userViewModel.activeUser
+                groceryListsViewModel.onGroceryListClicked(groceryListId)
+            }
         )
 
         binding.groceryLists.adapter = adapter
@@ -60,11 +54,27 @@ class GroceryListsFragment : Fragment() {
             false
         }
 
+        userViewModel.activeUser.observe(viewLifecycleOwner) { user ->
+            adapter.addUser(user)
+        }
         groceryListsViewModel.groceryLists.observe(viewLifecycleOwner) { groceryLists ->
             adapter.modifyList(groceryLists)
         }
-        groceryListsViewModel.createGroceryListClicked.observe(viewLifecycleOwner) {
-            if (it == true) navController.navigate(R.id.action_groceryListsFragment_to_createGroceryListFragment)
+        groceryListsViewModel.navigateToCreateGroceryList.observe(viewLifecycleOwner) { it ->
+            if (it) {
+                navController.navigate(R.id.action_groceryListsFragment_to_createGroceryListFragment)
+                groceryListsViewModel.doneNavigatingToCreateGroceryList()
+            }
+        }
+        groceryListsViewModel.navigateToGroceryListDetail.observe(viewLifecycleOwner) { groceryListId ->
+            groceryListId?.let {
+                navController.navigate(
+                    GroceryListsFragmentDirections.actionGroceryListsFragmentToGroceryListDetailFragment(
+                        it
+                    )
+                )
+                groceryListsViewModel.doneNavigatingToGroceryListDetails()
+            }
         }
 
         binding.backAppBar.setNavigationOnClickListener {
@@ -76,6 +86,7 @@ class GroceryListsFragment : Fragment() {
 
         return binding.root
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -1,0 +1,44 @@
+{
+  "data": [
+    {
+      "groceryListId": "9c2d393a-52c6-41a8-a2aa-950e0d4003a1",
+      "name": "AnotherOne",
+      "createdBy": "37b2ff27-3a8d-4c0f-8f3d-3cc42a36ec1c",
+      "createdDate": "2023-09-06T12:13:45.664Z",
+      "status": "open"
+    },
+    {
+      "groceryListId": "544ceb7a-1fdd-41d8-9a7e-e7d188910c69",
+      "name": "CreateTest",
+      "createdBy": "37b2ff27-3a8d-4c0f-8f3d-3cc42a36ec1c",
+      "createdDate": "2023-09-06T12:08:50.986Z",
+      "status": "open"
+    },
+    {
+      "groceryListId": "6b5e492f-d8ce-4973-a280-682ba26e9ba2",
+      "name": "Verjaardagsfeestje Aurora",
+      "createdBy": "37b2ff27-3a8d-4c0f-8f3d-3cc42a36ec1c",
+      "createdDate": "2022-08-31T19:26:50.469Z",
+      "status": "being collected",
+      "collectBy": "37b2ff27-3a8d-4c0f-8f3d-3cc42a36ec1c",
+      "currency": "EUR",
+      "price": 15
+    },
+    {
+      "groceryListId": "9ffd078d-366d-4e39-bad9-d3c1f2e8e1ba",
+      "name": "demo",
+      "createdBy": "37b2ff27-3a8d-4c0f-8f3d-3cc42a36ec1c",
+      "createdDate": "2023-08-25T12:02:14.955Z",
+      "status": "open"
+    },
+    {
+      "groceryListId": "5b5483e7-f459-40c1-a693-dc33a99f94ee",
+      "name": "test",
+      "createdBy": "37b2ff27-3a8d-4c0f-8f3d-3cc42a36ec1c",
+      "createdDate": "2023-09-05T15:13:48.796Z",
+      "status": "open"
+    }
+  ],
+  "limit": 100,
+  "offset": 0
+}

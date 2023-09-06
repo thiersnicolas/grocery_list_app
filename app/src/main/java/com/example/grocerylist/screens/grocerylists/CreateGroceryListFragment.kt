@@ -5,14 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.grocerylist.R
 import com.example.grocerylist.databinding.FragmentCreateGroceryListBinding
 import com.example.grocerylist.screens.MainActivityDirections
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -47,52 +45,26 @@ class CreateGroceryListFragment : Fragment() {
             navController.navigate(MainActivityDirections.actionGlobalNavWelcome())
         }
 
-        setCreateHandler()
-        setNameValidationHandler()
-        return view
-    }
+        binding.createButton.setOnClickListener {
+            viewModel.createGroceryList(binding.groceryListNameInputField.text.toString())
+        }
 
-    override fun onStop() {
-        viewModel.clearGroceryListDetail()
-        super.onStop()
+        viewModel.navigateToGroceryListDetail.observe(viewLifecycleOwner) { groceryListId ->
+            groceryListId?.let {
+                navController.navigate(
+                    CreateGroceryListFragmentDirections.actionCreateGroceryListFragmentToGroceryListDetailFragment(
+                        it
+                    )
+                )
+                viewModel.doneNavigatingToGroceryListDetails()
+            }
+        }
+
+        return view
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun setCreateHandler() {
-        binding.createButton.setOnClickListener {
-            val groceryListName = binding.groceryListNameInputField.text.toString().trim()
-            if (isNameValid(groceryListName)) {
-                viewModel.createGroceryList(groceryListName)
-                viewModel.groceryListDetail.observe(viewLifecycleOwner) { groceryListDetail ->
-                    if (groceryListDetail != null) {
-                        this.findNavController().navigate(
-                            CreateGroceryListFragmentDirections.actionCreateGroceryListFragmentToGroceryListDetailFragment(
-                                groceryListDetail.id
-                            )
-                        )
-                    }
-                }
-            } else {
-                binding.groceryListNameTextLayout.error =
-                    getString(R.string.grocery_list_name_invalid)
-            }
-        }
-    }
-
-    private fun setNameValidationHandler() {
-        binding.groceryListNameInputField.setOnKeyListener { _, _, _ ->
-            if (isNameValid(binding.groceryListNameInputField.text.toString())) {
-                binding.groceryListNameTextLayout.error = null
-            }
-            false
-        }
-    }
-
-    private fun isNameValid(name: String): Boolean {
-        return !(name.isBlank() || name.length <= 3)
     }
 }

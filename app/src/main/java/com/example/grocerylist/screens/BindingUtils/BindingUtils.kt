@@ -6,6 +6,7 @@ import androidx.databinding.BindingAdapter
 import com.example.grocerylist.R
 import com.example.grocerylist.domain.AppUser
 import com.example.grocerylist.domain.GroceryListDetail
+import com.google.android.material.textfield.TextInputLayout
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
@@ -82,6 +83,15 @@ fun TextView.setWelcomeUser(appUser: AppUser?) {
         text = ""
     } else {
         text = "Welcome ${appUser.name}"
+    }
+}
+
+@BindingAdapter("nameErrorMessage")
+fun TextInputLayout.setNameErrorMessage(displayError: Boolean?) {
+    if (displayError == null || !displayError) {
+        error = ""
+    } else {
+        error = "Grocery List name is invalid"
     }
 }
 
