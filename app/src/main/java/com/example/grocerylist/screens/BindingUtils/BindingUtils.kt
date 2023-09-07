@@ -6,6 +6,7 @@ import androidx.databinding.BindingAdapter
 import com.example.grocerylist.R
 import com.example.grocerylist.domain.AppUser
 import com.example.grocerylist.domain.GroceryListDetail
+import com.example.grocerylist.screens.UserApiStatus
 import com.google.android.material.textfield.TextInputLayout
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -92,6 +93,16 @@ fun TextInputLayout.setNameErrorMessage(displayError: Boolean?) {
         error = ""
     } else {
         error = "Grocery List name is invalid"
+    }
+}
+
+@BindingAdapter("userApiStatus")
+fun TextView.setUserApiStatus(status: UserApiStatus?) {
+    text = when (status) {
+        UserApiStatus.LOADING -> "Loading ..."
+        UserApiStatus.ERROR -> "An Error has occurred"
+        UserApiStatus.DONE -> ""
+        else -> ""
     }
 }
 

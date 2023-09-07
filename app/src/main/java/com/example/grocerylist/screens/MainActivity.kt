@@ -43,6 +43,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
+
+    //onCreateOptionsMenu && onOptionsItemsSelected
+
     private fun clearBottomNav() {
         bottomNavigation.visibility = View.INVISIBLE
     }
@@ -53,17 +57,17 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.logout -> {
                     logout()
-                    false
+                    true
                 }
 
                 R.id.groceryListsFragment -> {
                     navController.navigate(R.id.groceryListsFragment)
-                    false
+                    true
                 }
 
                 R.id.createGroceryListFragment -> {
                     navController.navigate(R.id.createGroceryListFragment)
-                    false
+                    true
                 }
 
                 else -> false

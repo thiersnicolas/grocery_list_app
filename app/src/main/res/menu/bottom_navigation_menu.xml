@@ -3,16 +3,16 @@
     <item
         android:id="@+id/logout"
         android:enabled="true"
-        android:icon="@drawable/ic_logout_icon"
-        android:title="@string/logout_text"/>
+        android:icon="@drawable/ic_logout_icon_blue"
+        android:title="@string/logout_text" />
     <item
         android:id="@+id/groceryListsFragment"
         android:enabled="true"
-        android:icon="@drawable/ic_cart_icon"
+        android:icon="@drawable/ic_cart_icon_blue"
         android:title="@string/grocery_lists"/>
     <item
         android:id="@+id/createGroceryListFragment"
         android:enabled="true"
-        android:icon="@drawable/ic_cart_add_icon"
+        android:icon="@drawable/ic_cart_add_icon_blue"
         android:title="@string/create_grocery_list_text"/>
 </menu>

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="backgroundColor">#7C7D7D</color>
-    <color name="colorPrimary">#f4f4f4</color>
-    <color name="colorPrimaryDark">#1d1f1f</color>
-    <color name="colorPrimaryDark2">#040606</color>
-    <color name="colorSecondary">#404242</color>
-    <color name="colorTertiary">#1d1f1f</color>
-    <color name="colorAccent">#040606</color>
+    <color name="backgroundColor">#D8F1F1</color>
+    <color name="colorPrimary">#3A3737</color>
+    <color name="colorPrimaryDark">#859494</color>
+    <color name="colorPrimaryDark2">#238E46</color>
+    <color name="colorSecondary">#031B57</color>
+    <color name="colorTertiary">#470531</color>
+    <color name="colorAccent">#787815</color>
 
-    <color name="textColorPrimary">#f4f4f4</color>
+    <color name="textColorPrimary">#252C50</color>
     <color name="loginPageBackgroundColor">#7C7D7D</color>
     <color name="textInputOutlineColor">#1d1f1f</color>
 
