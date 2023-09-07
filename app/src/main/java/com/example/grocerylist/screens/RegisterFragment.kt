@@ -42,6 +42,9 @@ class RegisterFragment : Fragment() {
         val view = binding.root
         userViewModel = ViewModelProvider(requireActivity())[UserViewModel::class.java]
 
+        binding.viewModel = userViewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+
         setUpObservers()
         setLoginHandler()
         setCredentialsValidationHandler()
