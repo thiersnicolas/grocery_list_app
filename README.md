@@ -17,3 +17,7 @@ https://grocery-list-frontendweb.onrender.com/grocerylists
 
 - de web API is zeer traag bij de eerste call en spijtig genoeg soms ook na opwarming
 - grocery list detail fragment: edit knop functionaliteit alsook RecyclerViews met product en user informatie zijn nog niet geïmplementeerd
+
+# opmerkingen
+
+- nog niet geteste wijziging op new_features branch
