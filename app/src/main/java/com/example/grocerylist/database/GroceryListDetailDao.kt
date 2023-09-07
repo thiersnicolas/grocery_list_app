@@ -11,7 +11,7 @@ interface GroceryListDetailDao {
     fun getGroceryListDetail(groceryListId: UUID): LiveData<GroceryListDetailDB>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertGroceryListDetail(groceryListDetail: GroceryListDetailDB)
+    fun insertGroceryListDetail(groceryListDetail: GroceryListDetailDB)
 
     @Query("DELETE FROM grocery_list_details")
     suspend fun deleteAllGroceryListDetails()

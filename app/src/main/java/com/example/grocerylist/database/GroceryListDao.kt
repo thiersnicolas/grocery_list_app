@@ -13,8 +13,8 @@ interface GroceryListDao {
     fun getGroceryLists(search: String): LiveData<List<GroceryListDB>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertGroceryLists(groceryLists: List<GroceryListDB>)
+    fun insertGroceryLists(groceryLists: List<GroceryListDB>)
 
     @Query("DELETE FROM grocery_lists")
-    suspend fun deleteAllGroceryLists()
+    fun deleteAllGroceryLists()
 }
