@@ -2,6 +2,7 @@ package com.example.grocerylist.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import com.example.grocerylist.TokenSessionManager
 import com.example.grocerylist.database.*
 import com.example.grocerylist.domain.GroceryList
@@ -36,33 +37,21 @@ class GroceryListRepository @Inject constructor(
     private val groceryListProductDao: GroceryListProductDao,
     private val groceryListUserDao: GroceryListUserDao,
 ) {
-    private val _groceryLists = MutableLiveData<List<GroceryList>>(emptyList())
-    val groceryLists: LiveData<List<GroceryList>>
-        get() = _groceryLists
     private val _groceryListProducts = MutableLiveData<List<GroceryListProduct>>(emptyList())
     private val _groceryListUsers = MutableLiveData<List<GroceryListUser>>(emptyList())
 
-    val groceryListDetail = MutableLiveData<GroceryListDetail?>(null)
-
-
-    suspend fun getGroceryLists(): LiveData<List<GroceryList>> {
-        val groceryLists = groceryListDao.getGroceryLists()
-        if (groceryLists.value == null || groceryLists.value!!.isEmpty()) {
-            refreshGroceryLists()
-        } else {
-            _groceryLists.value = groceryLists.value?.map { it.asDomainModel() }
+    val groceryLists: LiveData<List<GroceryList>> =
+        Transformations.map(groceryListDao.getGroceryLists()) { groceryListDBList ->
+            groceryListDBList.map { groceryListDB -> groceryListDB.asDomainModel() }
         }
-        return _groceryLists
-    }
 
-    suspend fun getGroceryListDetail(groceryListId: UUID): MutableLiveData<GroceryListDetail?> {
-        val groceryListDetail = groceryListDetailDao.getGroceryListDetail(groceryListId)
-        if (groceryListDetail.value == null) {
-            refreshGroceryListDetail(groceryListId)
-        } else {
-            this.groceryListDetail.value = groceryListDetail.value?.asDomainModel()
-        }
-        return this.groceryListDetail
+    suspend fun getGroceryListDetail(groceryListId: UUID): LiveData<GroceryListDetail> {
+        val groceryListDetail =
+            Transformations.map(groceryListDetailDao.getGroceryListDetail(groceryListId)) { groceryListDetailDB ->
+                groceryListDetailDB.asDomainModel()
+            }
+        refreshGroceryListDetail(groceryListId)
+        return groceryListDetail;
     }
 
     suspend fun deleteGroceryListDetail(groceryListId: UUID) {
@@ -103,7 +92,6 @@ class GroceryListRepository @Inject constructor(
                                     "refreshGroceryLists done: %s",
                                     gson.toJson(groceryListsFromApi.toString())
                                 )
-                                _groceryLists.value = groceryListsFromApi
                             } else if (response.code() == 401) {
                                 launch {
                                     appUserRepository.deleteCurrentUser()
@@ -122,8 +110,8 @@ class GroceryListRepository @Inject constructor(
         }
     }
 
-    suspend fun createGroceryList(name: String): LiveData<GroceryListDetail?> {
-        groceryListDetail.value = null
+    suspend fun createGroceryList(name: String): LiveData<GroceryListDetail> {
+        var groceryListDetail: LiveData<GroceryListDetail> = MutableLiveData(null)
         withContext(Dispatchers.IO) {
             groceryListApiService.createGroceryList(CreateGroceryListRequest(name))
                 .enqueue(object : Callback<GroceryListDetailResponse?> {
@@ -150,10 +138,16 @@ class GroceryListRepository @Inject constructor(
                                             it.price
                                         )
                                     })
+                                groceryListDetail =
+                                    Transformations.map(
+                                        groceryListDetailDao.getGroceryListDetail(
+                                            groceryListDetailFromApi.id
+                                        )
+                                    ) {
+                                        it.asDomainModel()
+                                    }
                                 refreshGroceryLists()
                             }
-
-                            groceryListDetail.value = groceryListDetailFromApi
                         } else if (response.code() == 401) {
                             launch {
                                 appUserRepository.deleteCurrentUser()
@@ -172,7 +166,7 @@ class GroceryListRepository @Inject constructor(
         return groceryListDetail
     }
 
-    suspend fun refreshGroceryListDetail(groceryListId: UUID): LiveData<GroceryListDetail?> {
+    suspend fun refreshGroceryListDetail(groceryListId: UUID) {
         withContext(Dispatchers.IO) {
             groceryListApiService.getGroceryListDetail(groceryListId.toString())
                 .enqueue(object : Callback<GroceryListDetailResponse?> {
@@ -200,8 +194,6 @@ class GroceryListRepository @Inject constructor(
                                         )
                                     })
                             }
-
-                            groceryListDetail.value = groceryListDetailFromApi
                         } else if (response.code() == 401) {
                             launch {
                                 appUserRepository.deleteCurrentUser()
@@ -217,7 +209,6 @@ class GroceryListRepository @Inject constructor(
                     }
                 })
         }
-        return groceryListDetail
     }
 
     suspend fun getGroceryListProducts(groceryListId: UUID): LiveData<List<GroceryListProduct>> {

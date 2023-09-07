@@ -33,15 +33,6 @@ class GroceryListsViewModel @Inject constructor(private val groceryListRepositor
     val navigateToCreateGroceryList
         get() = _navigateToCreateGroceryList
 
-    init {
-        Timber.i("getting groceryLists")
-        viewModelScope.launch {
-            _status.value = GroceryListsApiStatus.LOADING
-            groceryListRepository.getGroceryLists()
-            _status.value = GroceryListsApiStatus.DONE
-        }
-    }
-
     fun refreshGroceryLists() {
         Timber.tag("GroceryListsViewModel").i("refreshGroceryLists")
         viewModelScope.launch {

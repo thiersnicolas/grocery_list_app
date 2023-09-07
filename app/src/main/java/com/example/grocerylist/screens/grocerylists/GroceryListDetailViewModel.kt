@@ -20,8 +20,7 @@ class GroceryListDetailViewModel @Inject constructor(
 ) :
     ViewModel() {
 
-    val groceryListDetail: LiveData<GroceryListDetail?>
-        get() = groceryListRepository.groceryListDetail
+    var groceryListDetail: LiveData<GroceryListDetail> = MutableLiveData(null)
 
     private val _status = MutableLiveData<GroceryListDetailApiStatus>()
     val status: LiveData<GroceryListDetailApiStatus>
@@ -35,7 +34,7 @@ class GroceryListDetailViewModel @Inject constructor(
         Timber.tag("GroceryListDetailViewModel").i("getGroceryListDetail")
         viewModelScope.launch {
             _status.value = GroceryListDetailApiStatus.LOADING
-            groceryListRepository.getGroceryListDetail(groceryListId)
+            groceryListDetail = groceryListRepository.getGroceryListDetail(groceryListId)
             _status.value = GroceryListDetailApiStatus.DONE
         }
     }

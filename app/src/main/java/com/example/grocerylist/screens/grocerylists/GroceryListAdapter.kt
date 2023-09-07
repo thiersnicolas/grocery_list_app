@@ -61,8 +61,6 @@ class ViewHolder(val binding: GroceryListItemBinding, val user: AppUser?) :
         binding.clickListener = clickListener
         binding.user = user
         binding.executePendingBindings()
-
-
     }
 
     companion object {
