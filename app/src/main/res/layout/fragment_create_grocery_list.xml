@@ -17,17 +17,14 @@
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/back_app_bar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorSecondary"
-            android:clickable="true"
-            android:scrollbarThumbHorizontal="@color/colorSecondary"
-            android:scrollbarThumbVertical="@color/colorSecondary"
-            android:theme="@style/Widget.GroceryList.Button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:navigationIconTint="@color/backgroundColor"
             app:navigationIcon="@drawable/ic_home_icon"
+            app:subtitleTextColor="@color/backgroundColor"
+            app:titleTextColor="@color/backgroundColor"
+            style="@style/back_app_bar_style"
             app:title="@string/grocery_list"
             app:titleCentered="true"
             app:titleTextAppearance="@style/TextAppearance.AppCompat.Large" />
